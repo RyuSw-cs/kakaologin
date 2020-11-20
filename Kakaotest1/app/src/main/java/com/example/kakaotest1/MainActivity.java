@@ -1,7 +1,10 @@
 package com.example.kakaotest1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -26,10 +29,25 @@ import java.security.MessageDigest;
 public class MainActivity extends AppCompatActivity {
 
     private SessionCallback sessionCallback;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_next);
+
+        recyclerView = findViewById(R.id.recycler_view);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+
+        String[] main_text ={"유승우","이운기", "최상록","홍종현","임지은"};
+        String[] main_text2 ={"test","test1","tes2","test3","test4"};
+
+        mAdapter = new MyAdapter(main_text, main_text2);
+        recyclerView.setAdapter(mAdapter);
+
         sessionCallback = new SessionCallback();
         Session.getCurrentSession().addCallback(sessionCallback);
         Session.getCurrentSession().checkAndImplicitOpen();
@@ -89,9 +107,11 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+        @SuppressLint("LongLogTag")
         @Override
         public void onSessionOpenFailed(KakaoException e) {
-            Toast.makeText(getApplicationContext(), "로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요: "+e.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요: ",e.toString());
+            //Toast.makeText(getApplicationContext(), "로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요: "+e.toString(), Toast.LENGTH_SHORT).show();
         }
     }
     private void getAppKeyHash() {
