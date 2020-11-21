@@ -21,8 +21,8 @@ public class NextActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        String[] main_text ={"코딩","하루"};
-        String[] main_text2 ={"test","test1"};
+        String[] main_text ={"유승우","이운기", "최상록","홍종현","임지은"};
+        String[] main_text2 ={"test","test1","tes2","test3","test4"};
 
         mAdapter = new MyAdapter(main_text, main_text2);
         recyclerView.setAdapter(mAdapter);

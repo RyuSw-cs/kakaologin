@@ -35,22 +35,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_next);
-
-        recyclerView = findViewById(R.id.recycler_view);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-
-        String[] main_text ={"유승우","이운기", "최상록","홍종현","임지은"};
-        String[] main_text2 ={"test","test1","tes2","test3","test4"};
-
-        mAdapter = new MyAdapter(main_text, main_text2);
-        recyclerView.setAdapter(mAdapter);
-
+        setContentView(R.layout.activity_main);
         sessionCallback = new SessionCallback();
         Session.getCurrentSession().addCallback(sessionCallback);
         Session.getCurrentSession().checkAndImplicitOpen();
+
         getAppKeyHash();
     }
     @Override
@@ -90,17 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onSuccess(MeV2Response result) {
+                    Log.d("test_success", "성공했습니다");
                     Intent intent = new Intent(getApplicationContext(), NextActivity.class);
-                    intent.putExtra("name", result.getNickname());
-                    intent.putExtra("profile", result.getProfileImagePath());
-                    if(result.getKakaoAccount().hasEmail() == OptionalBoolean.TRUE)
-                        intent.putExtra("email", result.getKakaoAccount().getEmail());
-                    else
-                        intent.putExtra("email", "none");
-                    if(result.getKakaoAccount().hasGender() == OptionalBoolean.TRUE)
-                        intent.putExtra("gender", result.getKakaoAccount().getGender().getValue());
-                    else
-                        intent.putExtra("gender", "none");
                     startActivity(intent);
                     finish();
                 }
@@ -110,8 +90,7 @@ public class MainActivity extends AppCompatActivity {
         @SuppressLint("LongLogTag")
         @Override
         public void onSessionOpenFailed(KakaoException e) {
-            Log.e("로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요: ",e.toString());
-            //Toast.makeText(getApplicationContext(), "로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요: "+e.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요: "+e.toString(), Toast.LENGTH_SHORT).show();
         }
     }
     private void getAppKeyHash() {
