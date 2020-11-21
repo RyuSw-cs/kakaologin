@@ -19,10 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".NextActivity"/>
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="2bb7b273e73f41b32a99daa13abf855a"
-            />
+            android:value="2bb7b273e73f41b32a99daa13abf855a"/>
     </application>
 
 </manifest>
