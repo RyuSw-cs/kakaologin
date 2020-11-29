@@ -1,6 +1,7 @@
 package com.example.kakaotest1;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,8 +24,8 @@ public class NextActivity extends AppCompatActivity {
 
         String[] main_text ={"유승우","이운기", "최상록","홍종현","임지은"};
         String[] main_text2 ={"test","test1","tes2","test3","test4"};
-
-        mAdapter = new MyAdapter(main_text, main_text2);
+        Button b1 = null;
+        mAdapter = new MyAdapter(main_text, main_text2, b1);
         recyclerView.setAdapter(mAdapter);
     }
 }
